@@ -18,7 +18,6 @@
         </div>
     </div>
 
-    <!-- Hata Mesajlarını Gösterme Alanı -->
     @if ($errors->any())
         <div style="color: red;">
             <ul>
