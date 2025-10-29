@@ -50,13 +50,13 @@ class FilterController extends Controller
 
     public function filterCars(Request $request)
     {
-        // 1. Tüm markaları tekrar al (Filtre sayfasında da filtreleme kutusu gösterilebilir)
+
         $allBrands = Cars::select('brand')->distinct()->pluck('brand');
 
-        // 2. Temel sorguyu Cars modeliyle başlat
+
         $query = Cars::with('image');
 
-        // 3. İstekten gelen parametrelere göre sorguya koşul ekle
+
         if ($request->filled('brand')) {
             $query->where('brand', $request->input('brand'));
         }
@@ -65,7 +65,7 @@ class FilterController extends Controller
             $query->where('model', $request->input('model'));
         }
 
-        // Vites ve yakıt tiplerini AJAX ile değil, form gönderimi ile alıyoruz
+
         if ($request->filled('gear_type')) {
             $query->where('gear_type', $request->input('gear_type'));
         }
@@ -74,18 +74,18 @@ class FilterController extends Controller
             $query->where('fuel_type', $request->input('fuel_type'));
         }
 
-        // 4. Filtrelenmiş verileri çek
+
         $filteredData = $query->get();
 
-        // 5. Filtrelenmiş verileri yeni görünüme gönder
-        // Not: Varsayılan olarak welcome.blade.php'de gösterdiğiniz veriye burada $data yerine $filteredData adını verdik.
+
+
         return view('show-filter-car', compact('filteredData', 'allBrands'));
     }
 
     public function showCars(Request $request)
     {
-        $allBrands=Cars::select('brand')->distinct()->pluck('brand'); // Kullanılmadı, hatayı gidersin diye ekledik
-        $data = Cars::with('image')->get(); // Cars ve ilişkili image
+        $allBrands=Cars::select('brand')->distinct()->pluck('brand'); 
+        $data = Cars::with('image')->get(); 
 
         return view('welcome', compact('data', 'allBrands'));
     }
