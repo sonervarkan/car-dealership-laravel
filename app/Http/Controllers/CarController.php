@@ -11,13 +11,13 @@ use App\Models\User;
 
 class CarController extends Controller
 {
-    // Form sayfasını göster
+    
     public function showAdd()
     {
         return view('add-car');
     }
 
-    // Formdan gelen veriyi kaydet
+
     public function store(Request $request)
     {
         $request->validate([
@@ -32,7 +32,7 @@ class CarController extends Controller
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
-        // Araç kaydı
+
         $car = Cars::create([
             'brand' => $request->brand,
             'model' => $request->model,
@@ -45,7 +45,7 @@ class CarController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        // Resimleri kaydet
+
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('cars', 'public'); // storage/app/public/cars
