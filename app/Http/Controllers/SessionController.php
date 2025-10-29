@@ -36,7 +36,7 @@ class SessionController extends Controller
             'role_id' => $request->role_id,
         ]);
 
-        return redirect('/login')->with('success', 'Kayıt başarılı! Giriş yapabilirsiniz.');
+        return redirect('/login')->with('success', 'Successfull, now you can login!...');
     }
 
     // LOGIN
@@ -45,24 +45,20 @@ class SessionController extends Controller
     }
 
     public function login(Request $request){
-        // validate() metodunun döndürdüğü değer sadece doğrulanmış verilerdir.
-        // Auth::attempt() metodu, diziyi direkt olarak kabul eder.
+
         $credentials = $request->validate([
             'email' => 'required|email',
-            // Auth::attempt otomatik olarak parolayı hashlenmiş haliyle karşılaştırır.
             'password' => 'required|string',
         ]);
 
         if(Auth::attempt($credentials)){
-            // Oturum yenileme (Session Fixation önlemek için iyi bir pratik)
+
             $request->session()->regenerate();
-            return redirect()->intended('/'); // intended() kullanıcıyı gelmek istediği yere yönlendirir
+            return redirect()->intended('/'); 
         }else{
-            // Hata mesajını `withErrors` veya `with` metotları ile gönderin.
-            // Bu, Blade içinde `$errors->all()` ile yakalanabilir.
             return back()->withErrors([
-                'email' => 'Girilen e-posta veya parola hatalıdır.',
-            ])->onlyInput('email'); // Sadece e-posta alanını doldurur
+                'email' => 'Wrong email or password!...',
+            ])->onlyInput('email');
         }
     }
 
