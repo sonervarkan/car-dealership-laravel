@@ -17,7 +17,7 @@
                 <a href="/add-car">Add Car</a>
             </div>
             <div class="right">
-                <p style="color: aliceblue";>Merhaba {{ Auth::user()->name }}!</p>
+                <p style="color: aliceblue";>Hello {{ Auth::user()->name }}!</p>
                 <a href="/logout">Logout</a>
             </div>
         </div>
@@ -37,7 +37,7 @@
     @endguest
     <div class="results">
         @if ($filteredData->isEmpty())
-            <p>Seçtiğiniz kriterlere uygun araç bulunamadı.</p>
+            <p>The car was not found as your criterias.</p>
         @else
             @foreach ($filteredData as $car)
                 <div class="car-item">
@@ -45,18 +45,18 @@
 
                     @if ($car->image->isNotEmpty())
                         @php
-                            // İlk resmi alıyoruz
+                           
                             $firstImage = $car->image->first();
                         @endphp
                         <img src="{{ asset('storage/' . $firstImage->img_url) }}" alt="{{ $car->brand }} Resmi">
                     @else
-                        <p>Resim Yok.</p>
+                        <p>No pic.</p>
                     @endif
 
                     <ul>
                         <li>Vites: {{ $car->gear_type }}</li>
                         <li>Yakıt: {{ $car->fuel_type }}</li>
-                        {{-- ... (Diğer bilgileri ekleyebilirsiniz) ... --}}
+                        
                     </ul>
                 </div>
                 <hr>
