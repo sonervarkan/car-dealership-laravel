@@ -41,7 +41,7 @@
 
                 <div class="filter-group">
 
-                    <label for="brand" style="display: none;">Marka</label>
+                    <label for="brand" style="display: none;">Brand</label>
                     <select class="form-control" id="brand" name="brand">
                         <option value="">Select a Brand...</option>
 
@@ -59,16 +59,16 @@
                 </div>
 
                 <div class="filter-group" id="gear_type-group" style="display: none;">
-                    <label for="gear_type" style="display: none;">Vites Tipi</label>
+                    <label for="gear_type" style="display: none;">Gear Type</label>
                     <select class="form-control" name="gear_type" id="gear_type">
                         <option value="">Select a Gear Type...</option>
-                        <option value="Manual">Manuel</option>
-                        <option value="Automatic">Otomatik</option>
+                        <option value="Manual">Manual</option>
+                        <option value="Automatic">Automatic</option>
                     </select>
                 </div>
 
                 <div class="filter-group" id="fuel_type-group" style="display: none;">
-                    <label for="fuel_type" style="display: none;">Yakıt Tipi</label>
+                    <label for="fuel_type" style="display: none;">Fuel Type</label>
                     <select class="form-control" name="fuel_type" id="fuel_type">
                         <option value="">Select a Fuel Type...</option>
                         <option value="Gasoline">Gasoline</option>
@@ -78,7 +78,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Ara</button>
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Search</button>
             </form>
         </div>
         <div class="slider" id="slider">
@@ -91,7 +91,7 @@
                             @php
                                 $firstImage = $car->image->first();
                             @endphp
-                            <img src="{{ asset('storage/' . $firstImage->img_url) }}" alt="{{ $car->brand }} İlk Resmi">
+                            <img src="{{ asset('storage/' . $firstImage->img_url) }}" alt="{{ $car->brand }}">
                         @endif
                     </div>
                 @endforeach
@@ -118,14 +118,14 @@
             $('#brand').on('change', function() {
                 var brandName = $(this).val();
 
-                $modelSelect.html('<option value="">Önce Marka Seçiniz</option>').prop('disabled', true);
+                $modelSelect.html('<option value="">Select Brand First</option>').prop('disabled', true);
                 $modelGroup.slideUp(200);
                 $gearTypeGroup.slideUp(200);
                 $fuelTypeGroup.slideUp(200);
 
                 if (brandName) {
                     $modelGroup.slideDown(300);
-                    $modelSelect.html('<option value="">Modeller Yükleniyor...</option>');
+                    $modelSelect.html('<option value="">Loading Models...</option>');
 
                     $.ajax({
                         url: '{{ route('getModelsByBrand') }}',
