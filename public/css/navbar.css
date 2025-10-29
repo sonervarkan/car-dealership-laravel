@@ -1,0 +1,65 @@
+/* ======================================= */
+/* 1. Global Sıfırlama ve Temel Stiller */
+/* ======================================= */
+body {
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa; /* Çok açık, temiz bir arka plan */
+}
+
+/* ======================================= */
+/* 2. Navbar Konteyner Stili (Main Container) */
+/* ======================================= */
+.navbar {
+    background-color: #343a40; /* Koyu gri/siyah arka plan */
+    padding: 10px 30px; /* Kenarlardan daha fazla boşluk */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ======================================= */
+/* 3. Grup Konteyner Stilleri (Left ve Right) */
+/* ======================================= */
+.navbar .left,
+.navbar .right {
+    display: flex; /* İçindeki linkleri yan yana hizalar */
+    align-items: center;
+}
+
+/* ======================================= */
+/* 4. Link (<a>) Stilleri */
+/* ======================================= */
+.navbar a {
+    color: #ffffff; /* Beyaz yazı rengi */
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 0 8px; /* Linkler arasında yatay boşluk */
+    font-size: 1em;
+    font-weight: 500; /* Daha belirgin bir font kalınlığı */
+    transition: all 0.2s ease-in-out; /* Daha hızlı ve yumuşak geçiş */
+    border-radius: 4px;
+}
+
+/* ======================================= */
+/* 5. Link Hover ve Özel Stiller */
+/* ======================================= */
+.navbar a:hover {
+    background-color: #495057; /* Hover'da hafif koyu gri */
+    color: #e9ecef; /* Hafif kirli beyaz */
+}
+
+/* 'Register' için */
+.navbar .right a:last-child {
+    background-color: #007bff;
+    color: white;
+    margin-left: 20px;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.navbar .right a:last-child:hover {
+    background-color: #0056b3; /* Hover'da daha koyu mavi */
+    color: #ffffff;
+}
