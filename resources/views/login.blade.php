@@ -19,7 +19,6 @@
         </div>
     </div>
 
-    <!-- Hata Mesajlarını Gösterme Alanı -->
     @if ($errors->any())
         <div style="color: red;">
             <ul>
@@ -30,7 +29,6 @@
         </div>
     @endif
 
-    <!-- Kayıt sonrası başarı mesajını gösterme -->
     @if (session('success'))
         <div style="color: green;">
             {{ session('success') }}
