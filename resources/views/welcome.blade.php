@@ -17,7 +17,7 @@
                 <a href="/add-car">Add Car</a>
             </div>
             <div class="right">
-                <p style="color: aliceblue";>Merhaba {{ Auth::user()->name }}!</p>
+                <p style="color: aliceblue";>Hello {{ Auth::user()->name }}!</p>
                 <a href="/logout">Logout</a>
             </div>
         </div>
@@ -43,7 +43,7 @@
 
                     <label for="brand" style="display: none;">Marka</label>
                     <select class="form-control" id="brand" name="brand">
-                        <option value="">Marka Seçiniz...</option>
+                        <option value="">Select a Brand...</option>
 
                         @foreach ($allBrands as $brand)
                             <option value="{{ $brand }}">{{ $brand }}</option>
@@ -54,14 +54,14 @@
                 <div class="filter-group" id="model-group" style="display: none;">
                     <label for="model" style="display: none;">Model</label>
                     <select class="form-control" id="model" name="model" disabled>
-                        <option value="">Önce Marka Seçiniz</option>
+                        <option value="">Select Brand First</option>
                     </select>
                 </div>
 
                 <div class="filter-group" id="gear_type-group" style="display: none;">
                     <label for="gear_type" style="display: none;">Vites Tipi</label>
                     <select class="form-control" name="gear_type" id="gear_type">
-                        <option value="">Vites Tipi Seçiniz...</option>
+                        <option value="">Select a Gear Type...</option>
                         <option value="Manual">Manuel</option>
                         <option value="Automatic">Otomatik</option>
                     </select>
@@ -70,11 +70,11 @@
                 <div class="filter-group" id="fuel_type-group" style="display: none;">
                     <label for="fuel_type" style="display: none;">Yakıt Tipi</label>
                     <select class="form-control" name="fuel_type" id="fuel_type">
-                        <option value="">Yakıt Tipi Seçiniz...</option>
-                        <option value="Gasoline">Benzin</option>
-                        <option value="Diesel">Dizel</option>
-                        <option value="Electric">Elektrik</option>
-                        <option value="Hybrid">Hibrit</option>
+                        <option value="">Select a Fuel Type...</option>
+                        <option value="Gasoline">Gasoline</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Electric">Electric</option>
+                        <option value="Hybrid">Hybrid</option>
                     </select>
                 </div>
 
@@ -83,14 +83,12 @@
         </div>
         <div class="slider" id="slider">
             <div class="slides" id="slides">
-                {{-- *** DÜZELTME: Her bir araba bir 'slide' div'i içinde olmalıdır *** --}}
+                
                 @foreach ($data as $car)
                     <div class="slide">
                         <h2>{{ $car->brand }} - {{ $car->model }}</h2>
                         @if ($car->image->isNotEmpty())
                             @php
-                                // Koleksiyonun ilk elemanını al (hasMany ilişkisinde ilk resim)
-                                // Yani bir arabanın birçok resmi olabilir ilk resim sergilensin
                                 $firstImage = $car->image->first();
                             @endphp
                             <img src="{{ asset('storage/' . $firstImage->img_url) }}" alt="{{ $car->brand }} İlk Resmi">
@@ -116,29 +114,26 @@
             const $fuelTypeGroup = $('#fuel_type-group');
             const $fuelTypeSelect = $('#fuel_type');
 
-            // 1. Marka (Brand) Değişikliği: Modelleri Yükle
+           
             $('#brand').on('change', function() {
                 var brandName = $(this).val();
 
-                // Marka değiştiğinde diğer alanları sıfırla ve gizle
                 $modelSelect.html('<option value="">Önce Marka Seçiniz</option>').prop('disabled', true);
                 $modelGroup.slideUp(200);
                 $gearTypeGroup.slideUp(200);
                 $fuelTypeGroup.slideUp(200);
 
                 if (brandName) {
-                    // Modelleri yüklemeden önce Model grubunu göster
                     $modelGroup.slideDown(300);
                     $modelSelect.html('<option value="">Modeller Yükleniyor...</option>');
 
-                    // AJAX İsteği: Seçilen markaya ait modelleri getir
                     $.ajax({
                         url: '{{ route('getModelsByBrand') }}',
                         type: 'GET',
                         data: { brand: brandName },
                         dataType: 'json',
                         success: function(models) {
-                            $modelSelect.html('<option value="">Tüm Modeller</option>');
+                            $modelSelect.html('<option value="">All Models</option>');
                             $.each(models, function(key, model) {
                                 $modelSelect.append('<option value="' + model + '">' + model + '</option>');
                             });
@@ -148,7 +143,6 @@
                 }
             });
 
-            // 2. Vites Tipi Değişikliği
             $modelSelect.on('change', function() {
                 var modelName=$(this).val();
                 var brandName = $('#brand').val();
@@ -162,18 +156,17 @@
                         data: { model: modelName, brand: brandName },
                         dataType: 'json',
                         success: function(gearTypes) {
-                            $gearTypeSelect.html('<option value="">Vites Tipi Seçiniz...</option>');
+                            $gearTypeSelect.html('<option value="">Select a Gear Type...</option>');
                             $.each(gearTypes, function(key, gearType) {
                                 $gearTypeSelect.append('<option value="' + gearType + '">' + gearType + '</option>');
                             });
                         }
                     });
                 }else {
-                        $gearTypeSelect.html('<option value="">Bu model için vites tipi bulunamadı</option>').prop('disabled', true);
+                        $gearTypeSelect.html('<option value="">No gear type found for this model</option>').prop('disabled', true);
                 }
             });
 
-            // 3. Yakıt Tipi Değişikliği
             $gearTypeSelect.on('change', function() {
                 var gearType=$(this).val();
                 var brandName = $('#brand').val();
@@ -195,7 +188,7 @@
                         }
                     })
                 }else{
-                    $fuelTypeSelect.html('<option value="">Bu vites tipi için yakıt tipi bulunamadı</option>').prop('disabled', true);
+                    $fuelTypeSelect.html('<option value="">No fuel type found for this gear type</option>').prop('disabled', true);
                 }
             });
 
