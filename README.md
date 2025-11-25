@@ -108,25 +108,26 @@ php artisan serve
 ## Routes Overview
 ````
 Authentication
-Method	Route	Description
-GET	/register	Show register page
-POST	/register	Submit register form
-GET	/login	Show login page
-POST	/login	Submit login form
-GET	/logout	Logout user
-Car Management
-Method	Route	Description
-GET	/add-car	Show add car form
-POST	/add-car	Store new car
-Filtering (AJAX)
-Method	Route	Description
-GET	/get-models-by-brand	Get models for a brand
-GET	/get-gear-type-by-model	Get gear types
-GET	/get-fuel-type-by-gear-type	Get fuel types
-GET	/filtered-cars	Return filtered results
-Home
-Method	Route	Description
-GET	/	Display homepage & featured cars slider
+### Authentication
+Method	    Route	        Description
+GET	        /register	    Show register page
+POST	     /register	    Submit register form
+GET	        /login	        Show login page
+POST	    /login	        Submit login form
+GET	        /logout	        Logout user
+### Car Management
+Method	    Route	        Description
+GET	        /add-car	    Show add car form
+POST	    /add-car    	Store new car
+### Filtering (AJAX)
+Method	    Route	                    Description
+GET	        /get-models-by-brand  	    Get models for a brand
+GET	        /get-gear-type-by-model	    Get gear types
+GET	        /get-fuel-type-by-gear-type	Get fuel types
+GET	        /filtered-cars	            Return filtered results
+### Home
+Method	    Route	    Description
+GET	        /	        Display homepage & featured cars slider
 ````
 ## Technologies Used
 ````
